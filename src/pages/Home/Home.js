@@ -1,19 +1,23 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Groups from './Groups/Groups';
+import Chores from './Chores/Chores';
+import Profile from './Profile/Profile';
 
 const Home = () => {
+  const Tab = createBottomTabNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-    </View>
-  )
-}
+    <NavigationContainer>
+      <Tab.Navigator screenOptions={{ headerShown: false }}>
+        <Tab.Screen name="Groups" component={Groups} />
+        <Tab.Screen name="Chores" component={Chores} />
+        <Tab.Screen name="Profile" component={Profile} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
 
-export default Home
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-    },
-})
+export default Home;

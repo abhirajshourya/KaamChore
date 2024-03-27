@@ -1,18 +1,19 @@
-import { SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Home from './src/pages/Home/Home';
+import { useState } from 'react';
+import Signin from './src/pages/Signin/Signin';
+import SafeAreaWithInsets from './src/components/SafeAreaWithInsets/SafeAreaWithInsets';
 
 export default function App() {
+  const Tab = createBottomTabNavigator();
+  const [isSignedIn, setIsSignedIn] = useState(true);
+
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar />
-      <Home />
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaWithInsets>
+        {isSignedIn ? <Home /> : <Signin setIsSignedIn={setIsSignedIn} />}
+      </SafeAreaWithInsets>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-})
