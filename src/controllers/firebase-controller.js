@@ -1,5 +1,12 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  initializeAuth,
+  indexedDBLocalPersistence,
+} from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAED4aemKAdq6x_Ux4A_6vcHjX70FzYvTU',
@@ -12,18 +19,41 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 
-export default firebaseApp;
+// Get the Firestore instance
+export const db = getFirestore(firebaseApp);
+
+export const auth = initializeAuth(firebaseApp, {
+  persistence: indexedDBLocalPersistence,
+});
 
 // Sign up function
-const signUp = async (email, password) => {
-  const auth = getAuth();
-  return await createUserWithEmailAndPassword(auth, email, password);
+export const signUp = async (email, password) => {
+  try {
+    return await createUserWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 // Sign in function
-const signIn = async (email, password) => {
-  const auth = getAuth();
-  return await signInWithEmailAndPassword(auth, email, password);
+export const signIn = async (email, password) => {
+  try {
+    return await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
-export { signUp, signIn };
+// Logout function
+export const logout = async () => {
+  try {
+    return await signOut(auth);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export default firebaseApp;

@@ -1,17 +1,19 @@
+import { View, Text, TouchableHighlight, TextInput, TouchableOpacity, Alert } from 'react-native';
+import React, { useContext, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Alert, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import SafeAreaWithInsets from '../../components/SafeAreaWithInsets/SafeAreaWithInsets';
-import { signIn } from '../../controllers/firebase-controller';
-import styles, { colourPalette } from '../../styles/main';
+import SignedInContext from '../../context/SignInContext';
 
-const Signin = ({ setIsSignedIn, navigation }) => {
+const Signin = ({ navigation }) => {
+  const { setIsSignedIn } = useContext(SignedInContext);
   const singInHandler = async () => {
     try {
       const user = await signIn(email, password);
       setIsSignedIn(true);
     } catch (error) {
-      Alert.alert('Error', 'Invalid email or password');
+      Alert.alert('Error', error.message);
     }
   };
 

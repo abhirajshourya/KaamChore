@@ -5,9 +5,11 @@ import Signin from './src/pages/Signin/Signin';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signup from './src/pages/Signup/Signup';
 import { NavigationContainer } from '@react-navigation/native';
+import { SignedInProvider } from './src/context/SignInContext';
 
 export default function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
+
   const Stack = createNativeStackNavigator();
 
   const AuthenticationPage = () => {
@@ -25,8 +27,10 @@ export default function App() {
   };
 
   return (
-    <NavigationContainer>
-      <SafeAreaProvider>{isSignedIn ? <Home /> : <AuthenticationPage />}</SafeAreaProvider>
-    </NavigationContainer>
+    <SignedInProvider value={{ setIsSignedIn }}>
+      <NavigationContainer>
+        <SafeAreaProvider>{isSignedIn ? <Home /> : <AuthenticationPage />}</SafeAreaProvider>
+      </NavigationContainer>
+    </SignedInProvider>
   );
 }
