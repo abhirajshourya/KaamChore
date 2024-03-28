@@ -15,18 +15,9 @@ const firebaseApp = initializeApp(firebaseConfig);
 export default firebaseApp;
 
 // Sign up function
-const signUp = (email, password) => {
+const signUp = async (email, password) => {
   const auth = getAuth();
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // User signed up successfully
-      const user = userCredential.user;
-      console.log('Sign up successful:', user);
-    })
-    .catch((error) => {
-      // Error occurred during sign up
-      console.error('Sign up error:', error);
-    });
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
 
 // Sign in function
