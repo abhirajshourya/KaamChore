@@ -93,11 +93,8 @@ const Signin = ({ setIsSignedIn, navigation }) => {
           </TouchableHighlight>
           <TouchableOpacity
             style={{
-              marginTop: 5,
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              width: '100%',
+              ...styles.formButton,
+              backgroundColor: 'transparent',
             }}
             onPress={() => {
               navigation.navigate('Signup');
@@ -110,7 +107,7 @@ const Signin = ({ setIsSignedIn, navigation }) => {
                 textDecorationLine: 'underline',
               }}
             >
-              Signup
+              Sign up
             </Text>
           </TouchableOpacity>
         </View>
