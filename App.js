@@ -12,19 +12,21 @@ export default function App() {
 
   const AuthenticationPage = () => {
     return (
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Signin"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Signin" component={Signin} />
-          <Stack.Screen name="Signup" component={Signup} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Signin"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="Signin" component={Signin} />
+        <Stack.Screen name="Signup" component={Signup} />
+      </Stack.Navigator>
     );
   };
 
-  return <SafeAreaProvider>{isSignedIn ? <Home /> : <AuthenticationPage />}</SafeAreaProvider>;
+  return (
+    <NavigationContainer>
+      <SafeAreaProvider>{isSignedIn ? <Home /> : <AuthenticationPage />}</SafeAreaProvider>
+    </NavigationContainer>
+  );
 }

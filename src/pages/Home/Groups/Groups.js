@@ -1,11 +1,12 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
+import SafeAreaWithInsets from '../../../components/SafeAreaWithInsets/SafeAreaWithInsets';
 
 const Groups = () => {
   return (
-    <View>
+    <SafeAreaWithInsets>
       <Text>Groups</Text>
-    </View>
+    </SafeAreaWithInsets>
   );
 };
 
