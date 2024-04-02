@@ -1,9 +1,9 @@
-import { View, Text, TouchableHighlight, TextInput, TouchableOpacity, Alert } from 'react-native';
-import React, { useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import styles, { colourPalette } from '../../styles/main';
-import { signIn } from '../../controllers/firebase-controller';
+import React, { useState } from 'react';
+import { Alert, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import SafeAreaWithInsets from '../../components/SafeAreaWithInsets/SafeAreaWithInsets';
+import { signIn } from '../../controllers/firebase-controller';
+import styles, { colourPalette } from '../../styles/main';
 
 const Signin = ({ setIsSignedIn, navigation }) => {
   const singInHandler = async () => {
@@ -36,6 +36,9 @@ const Signin = ({ setIsSignedIn, navigation }) => {
               placeholder="Email"
               autoCorrect={false}
               defaultValue={email}
+              style={{
+                width: '90%',
+              }}
               onChangeText={(text) => {
                 setEmail(text);
               }}
