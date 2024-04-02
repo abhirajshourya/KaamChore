@@ -1,9 +1,9 @@
 import { View, Text, TextInput, TouchableOpacity, TouchableHighlight, Alert } from 'react-native';
 import React, { useState } from 'react';
-import { Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import SafeAreaWithInsets from '../../components/SafeAreaWithInsets/SafeAreaWithInsets';
 import { signUp } from '../../controllers/firebase-controller';
 import styles, { colourPalette } from '../../styles/main';
+import { AntDesign } from '@expo/vector-icons';
 
 const Signup = ({ navigation }) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);

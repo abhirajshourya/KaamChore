@@ -1,10 +1,10 @@
 import { View, Text, TouchableHighlight, TextInput, TouchableOpacity, Alert } from 'react-native';
 import React, { useContext, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { Alert, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import SafeAreaWithInsets from '../../components/SafeAreaWithInsets/SafeAreaWithInsets';
 import SignedInContext from '../../context/SignInContext';
+import { signIn } from '../../controllers/firebase-controller';
+import styles, { colourPalette } from '../../styles/main';
 
 const Signin = ({ navigation }) => {
   const { setIsSignedIn } = useContext(SignedInContext);
