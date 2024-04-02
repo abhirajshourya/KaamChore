@@ -25,8 +25,8 @@ const firebaseApp = initializeApp(firebaseConfig);
 // Get the Firestore instance
 export const db = getFirestore(firebaseApp);
 
-export const auth = initializeAuth(firebaseApp, {
-  persistence: indexedDBLocalPersistence,
+const auth = initializeAuth(firebaseApp, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
 
 // Sign up function
