@@ -11,7 +11,7 @@ const Signin = ({ navigation }) => {
   const singInHandler = async () => {
     try {
       const user = await signIn(email, password);
-      setIsSignedIn(true);
+      // setIsSignedIn(true);
     } catch (error) {
       Alert.alert('Error', error.message);
     }
