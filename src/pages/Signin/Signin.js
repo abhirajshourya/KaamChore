@@ -3,15 +3,22 @@ import React, { useContext, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import SafeAreaWithInsets from '../../components/SafeAreaWithInsets/SafeAreaWithInsets';
 import SignedInContext from '../../context/SignInContext';
-import { signIn } from '../../controllers/firebase-controller';
+import { auth, signIn } from '../../controllers/firebase-controller';
 import styles, { colourPalette } from '../../styles/main';
+import { useDispatch, useSelector } from 'react-redux';
+import { sliceSignin } from '../../redux/userSlice';
 
 const Signin = ({ navigation }) => {
-  const { setIsSignedIn } = useContext(SignedInContext);
+  const dispatch = useDispatch();
+  const _user = useSelector((state) => state.user.user);
+  // const { setIsSignedIn } = useContext(SignedInContext);
+
   const singInHandler = async () => {
     try {
       const user = await signIn(email, password);
-      setIsSignedIn(true);
+      let tmpUser = auth.currentUser.toJSON();
+      dispatch(sliceSignin(tmpUser));
+      console.log('User signed in', tmpUser);
     } catch (error) {
       Alert.alert('Error', error.message);
     }
