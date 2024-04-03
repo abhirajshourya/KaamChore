@@ -4,9 +4,10 @@ import {
   signInWithEmailAndPassword,
   signOut,
   initializeAuth,
-  indexedDBLocalPersistence,
+  getReactNativePersistence,
 } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { ReactNativeAsyncStorage } from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAED4aemKAdq6x_Ux4A_6vcHjX70FzYvTU',
@@ -23,7 +24,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 export const db = getFirestore(firebaseApp);
 
 export const auth = initializeAuth(firebaseApp, {
-  persistence: indexedDBLocalPersistence,
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
 
 // Sign up function
