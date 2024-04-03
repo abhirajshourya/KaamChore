@@ -6,9 +6,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Signup from './src/pages/Signup/Signup';
 import { NavigationContainer } from '@react-navigation/native';
 import { SignedInProvider } from './src/context/SignInContext';
+import { useSelector } from 'react-redux';
+import { StoreProvider } from './src/redux/store';
+import { auth } from './src/controllers/firebase-controller';
 
-export default function App() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
+
+export default function AppWrapper() {
+  return (
+    <StoreProvider>
+      <App />
+    </StoreProvider>
+  );
+}
+
+export function App() {
+  const user = useSelector((state) => state.user.user);
 
   const Stack = createNativeStackNavigator();
 
@@ -27,10 +39,11 @@ export default function App() {
   };
 
   return (
-    <SignedInProvider value={{ setIsSignedIn }}>
-      <NavigationContainer>
-        <SafeAreaProvider>{isSignedIn ? <Home /> : <AuthenticationPage />}</SafeAreaProvider>
-      </NavigationContainer>
-    </SignedInProvider>
+    <NavigationContainer>
+      <SafeAreaProvider>
+        {user
+          ? <Home /> : <AuthenticationPage />}
+      </SafeAreaProvider>
+    </NavigationContainer>
   );
 }
