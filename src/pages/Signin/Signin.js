@@ -1,24 +1,20 @@
-import { View, Text, TouchableHighlight, TextInput, TouchableOpacity, Alert } from 'react-native';
-import React, { useContext, useState } from 'react';
 import { AntDesign } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { Alert, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import SafeAreaWithInsets from '../../components/SafeAreaWithInsets/SafeAreaWithInsets';
-import SignedInContext from '../../context/SignInContext';
 import { auth, signIn } from '../../controllers/firebase-controller';
 import styles, { colourPalette } from '../../styles/main';
-import { useDispatch, useSelector } from 'react-redux';
-import { sliceSignin } from '../../redux/userSlice';
 
 const Signin = ({ navigation }) => {
   const dispatch = useDispatch();
-  const _user = useSelector((state) => state.user.user);
-  // const { setIsSignedIn } = useContext(SignedInContext);
 
-  const singInHandler = async () => {
+  const signInHandler = async () => {
     try {
-      const user = await signIn(email, password);
-      let tmpUser = auth.currentUser.toJSON();
-      dispatch(sliceSignin(tmpUser));
-      console.log('User signed in', tmpUser);
+      await signIn(email, password);
+      let userInfo = auth.currentUser.toJSON();
+      dispatch({ type: 'user/login', payload: userInfo });
+      console.log('User signed in', userInfo);
     } catch (error) {
       Alert.alert('Error', error.message);
     }
@@ -91,7 +87,7 @@ const Signin = ({ navigation }) => {
               backgroundColor:
                 email.length === 0 || password.length === 0 ? '#DDDDDD' : colourPalette.primary,
             }}
-            onPress={singInHandler}
+            onPress={signInHandler}
             disabled={email.length === 0 || password.length === 0}
           >
             <Text

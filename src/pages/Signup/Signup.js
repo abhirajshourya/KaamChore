@@ -1,16 +1,16 @@
-import { View, Text, TextInput, TouchableOpacity, TouchableHighlight, Alert } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 import React, { useState } from 'react';
+import { Alert, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import SafeAreaWithInsets from '../../components/SafeAreaWithInsets/SafeAreaWithInsets';
 import { signUp } from '../../controllers/firebase-controller';
 import styles, { colourPalette } from '../../styles/main';
-import { AntDesign } from '@expo/vector-icons';
 
 const Signup = ({ navigation }) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const singUpHandler = async () => {
+  const signUpHandler = async () => {
     try {
       await signUp(email, password);
       navigation.popToTop();
@@ -82,7 +82,7 @@ const Signup = ({ navigation }) => {
               backgroundColor:
                 email.length === 0 || password.length === 0 ? '#DDDDDD' : colourPalette.primary,
             }}
-            onPress={singUpHandler}
+            onPress={signUpHandler}
             disabled={email.length === 0 || password.length === 0}
           >
             <Text

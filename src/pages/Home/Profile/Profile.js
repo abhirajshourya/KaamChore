@@ -1,28 +1,25 @@
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
-import React, { useContext } from 'react';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import SafeAreaWithInsets from '../../../components/SafeAreaWithInsets/SafeAreaWithInsets';
-import { auth, logout } from '../../../controllers/firebase-controller';
-import { useSelector } from 'react-redux';
+import { logout } from '../../../controllers/firebase-controller';
+import { useDispatch } from 'react-redux';
 
 const Profile = () => {
-  // const { setIsSignedIn } = useContext(SignedInContext);
-  // const user = useSelector((state) => state.user.user);
-  const user = auth.currentUser;
-  console.log(user, "from profile");
+  const dispatch = useDispatch();
   return (
     <SafeAreaWithInsets>
-      <TouchableHighlight
+      <TouchableOpacity
         onPress={async () => {
           try {
             await logout();
-            setIsSignedIn(false);
+            dispatch({ type: 'user/logout' });
           } catch (error) {
             console.log(error);
           }
         }}
       >
         <Text>Logout</Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
     </SafeAreaWithInsets>
   );
 };
