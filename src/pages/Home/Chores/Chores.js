@@ -1,20 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import SafeAreaWithInsets from '../../../components/SafeAreaWithInsets/SafeAreaWithInsets';
+import styles from '../../../styles/main';
 
 const Chores = () => {
   return (
     <SafeAreaWithInsets>
-      <Text>Chores</Text>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>Your Chores</Text>
+      </View>
+      <View style={styles.listContainer}></View>
     </SafeAreaWithInsets>
   );
 };
 
 export default Chores;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
