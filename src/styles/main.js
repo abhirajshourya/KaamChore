@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   formBox: {
     width: '80%',
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: colourPalette.background,
     borderRadius: 10,
     display: 'flex',
     justifyContent: 'center',
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 10,
     marginBottom: 10,
-    backgroundColor: colourPalette.background,
+    backgroundColor: '#fff',
     borderRadius: 5,
   },
   formButton: {
@@ -58,6 +58,26 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     padding: 20,
+    height: '80%',
+  },
+  card: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 15,
+    backgroundColor: '#e8e8e8',
+    borderRadius: 5,
+    marginBottom: 15,
+  },
+  cardText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  cardSubText: {
+    fontSize: 12,
+    marginBottom: 5,
+    color: '#666',
   },
 });
 

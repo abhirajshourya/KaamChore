@@ -85,7 +85,7 @@ const Signin = ({ navigation }) => {
             style={{
               ...styles.formButton,
               backgroundColor:
-                email.length === 0 || password.length === 0 ? '#DDDDDD' : colourPalette.primary,
+                email.length === 0 || password.length === 0 ? 'lightblue' : colourPalette.primary,
             }}
             onPress={signInHandler}
             disabled={email.length === 0 || password.length === 0}

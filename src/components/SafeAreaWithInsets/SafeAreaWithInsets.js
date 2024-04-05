@@ -11,7 +11,7 @@ const SafeAreaWithInsets = ({ children }) => {
       style={{
         height: '100%',
         width: '100%',
-        backgroundColor: colourPalette.background,
+        backgroundColor: '#fff',
         paddingTop: insets.top,
         paddingBottom: insets.bottom,
         paddingLeft: insets.left,
