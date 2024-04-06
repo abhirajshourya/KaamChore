@@ -41,6 +41,9 @@ const Signin = ({ navigation }) => {
               placeholder="Email"
               autoCorrect={false}
               defaultValue={email}
+              autoFocus={true}
+              keyboardType='email-address'
+              autoCapitalize='none'
               style={{
                 width: '90%',
               }}
