@@ -36,6 +36,8 @@ const Signup = ({ navigation }) => {
               placeholder="Email"
               autoCorrect={false}
               defaultValue={email}
+              keyboardType="email-address"
+              autoCapitalize="none"
               style={{
                 width: '90%',
               }}
