@@ -1,23 +1,25 @@
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import styles from '../../styles/main';
 
-const GroupCard = ({ index }) => {
+const GroupCard = ({ index, data }) => {
   return (
-    <View style={styles.card} key={index + 1}>
+    <TouchableOpacity style={styles.card} key={index + 1} activeOpacity={0.7}>
       <View>
-        <Text style={styles.cardText}>Group {index + 1}</Text>
-        <Text style={styles.cardSubText}>Darshan checked-in</Text>
+        <Text style={styles.cardText}>{data.name}</Text>
+        <Text style={styles.cardSubText}>{data.recentActivity}</Text>
       </View>
       <View
         style={{
           alignItems: 'flex-end',
         }}
       >
-        <Text style={styles.cardText}>3/7</Text>
+        <Text style={styles.cardText}>
+          {data.completedChores}/{data.totalChores}
+        </Text>
         <Text style={styles.cardSubText}>Completed</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

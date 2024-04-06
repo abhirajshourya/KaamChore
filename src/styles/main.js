@@ -66,6 +66,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  headerButton: {
+    position: 'absolute',
+    right: 10,
+    top: 10,
+    padding: 10,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+  },
   listContainer: {
     flex: 1,
     padding: 20,
@@ -89,6 +97,30 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginBottom: 5,
     color: '#666',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.2)',
+  },
+  modalView: {
+    width: '80%',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3,
+    elevation: 4,
+    backgroundColor: '#fff',
+    padding: 20,
+    margin: 20,
+    borderRadius: 10,
+  },
+  modalText: {
+    fontSize: 20,
+    marginBottom: 10,
   },
 });
 
