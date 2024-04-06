@@ -30,7 +30,12 @@ const Signup = ({ navigation }) => {
         }}
       >
         <View style={styles.formBox}>
-          <Text style={styles.formTitle}>Sign-up at KaamChore</Text>
+          <View style={styles.formTitle}>
+            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+              <AntDesign name="arrowleft" size={24} color="black" />
+            </TouchableOpacity>
+            <Text style={styles.formTitleText}>Sign-up at KaamChore</Text>
+          </View>
           <View style={styles.formInput}>
             <TextInput
               placeholder="Email"

@@ -24,8 +24,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   formTitle: {
-    fontSize: 20,
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 20,
+  },
+  formTitleText: {
+    fontSize: 20,
+  },
+  backButton: {
+    position: 'absolute',
+    left: 0,
   },
   formInput: {
     width: '100%',

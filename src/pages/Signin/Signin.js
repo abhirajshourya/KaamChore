@@ -35,15 +35,17 @@ const Signin = ({ navigation }) => {
         }}
       >
         <View style={styles.formBox}>
-          <Text style={styles.formTitle}>Login to KaamChore</Text>
+          <View style={styles.formTitle}>
+            <Text style={styles.formTitleText}>Login to KaamChore</Text>
+          </View>
           <View style={styles.formInput}>
             <TextInput
               placeholder="Email"
               autoCorrect={false}
               defaultValue={email}
               autoFocus={true}
-              keyboardType='email-address'
-              autoCapitalize='none'
+              keyboardType="email-address"
+              autoCapitalize="none"
               style={{
                 width: '90%',
               }}
