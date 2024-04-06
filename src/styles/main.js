@@ -120,6 +120,16 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 20,
+  },
+  modalIcon: {
+    position: 'absolute',
+    right: 10,
+  },
+  modalHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 10,
   },
 });

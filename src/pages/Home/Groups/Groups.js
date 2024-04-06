@@ -38,15 +38,17 @@ const Groups = () => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Create Group</Text>
-            <TouchableOpacity
-              style={styles.headerButton}
-              onPress={() => {
-                setIsModalVisible(false);
-              }}
-            >
-              <AntDesign name="close" size={24} color="black" />
-            </TouchableOpacity>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalText}>Create Group</Text>
+              <TouchableOpacity
+                style={styles.modalIcon}
+                onPress={() => {
+                  setIsModalVisible(false);
+                }}
+              >
+                <AntDesign name="close" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
