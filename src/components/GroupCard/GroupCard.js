@@ -2,9 +2,17 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import styles from '../../styles/main';
 
-const GroupCard = ({ index, data }) => {
+const GroupCard = ({ index, data, navigation }) => {
+  const onGroupCardClick = () => {
+    navigation.navigate('Group', { data, navigation });
+  };
   return (
-    <TouchableOpacity style={styles.card} key={index + 1} activeOpacity={0.7}>
+    <TouchableOpacity
+      style={styles.card}
+      key={index + 1}
+      activeOpacity={0.7}
+      onPress={onGroupCardClick}
+    >
       <View>
         <Text style={styles.cardText}>{data.name}</Text>
         <Text style={styles.cardSubText}>{data.recentActivity}</Text>

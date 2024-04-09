@@ -21,56 +21,21 @@ const groupData = [
     chores: [
       {
         id: 1,
-        name: 'Chore 1',
-        completed: true,
+        name: 'Clean Kitchen',
+        assignee: 'darshan@kaamchore.ca',
+        status: 'overdue',
       },
       {
         id: 2,
-        name: 'Chore 2',
-        completed: false,
+        name: 'Vacuum Living Room',
+        assignee: 'jane@kaamchore.ca',
+        status: 'completed',
       },
       {
         id: 3,
-        name: 'Chore 3',
-        completed: true,
-      },
-    ],
-    recentActivity: 'darshan@kaamchore.ca checked-in',
-    totalChores: 3,
-    completedChores: 2,
-  },
-  {
-    id: 2,
-    name: 'Group 2',
-    members: [
-      {
-        id: 1,
-        email: 'darshan@kaamchore.ca',
-      },
-      {
-        id: 2,
-        email: 'john@kaamchore.ca',
-      },
-      {
-        id: 3,
-        email: 'jane@kaamchore.ca',
-      },
-    ],
-    chores: [
-      {
-        id: 1,
-        name: 'Chore 1',
-        completed: true,
-      },
-      {
-        id: 2,
-        name: 'Chore 2',
-        completed: false,
-      },
-      {
-        id: 3,
-        name: 'Chore 3',
-        completed: true,
+        name: 'Mop Bathroom',
+        assignee: 'jane@kaamchore.ca',
+        status: 'pending',
       },
     ],
     recentActivity: 'darshan@kaamchore.ca checked-in',

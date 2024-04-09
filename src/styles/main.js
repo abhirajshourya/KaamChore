@@ -150,6 +150,12 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 20,
+    marginBottom: 10,
+  },
+  modalDivider: {
+    borderBottomWidth: 2,
+    borderBottomColor: '#e0e0e0',
+    marginBottom: 10,
   },
   modalIcon: {
     position: 'absolute',
