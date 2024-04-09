@@ -79,6 +79,12 @@ const styles = StyleSheet.create({
     padding: 20,
     height: '80%',
   },
+  noItemInList: {
+    fontSize: 18,
+    fontStyle: 'italic',
+    textAlign: 'center',
+    marginTop: 20,
+  },
   card: {
     display: 'flex',
     flexDirection: 'row',
@@ -118,6 +124,30 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 10,
   },
+  modalBody: {
+    marginBottom: 20,
+  },
+  modalLabel: {
+    fontSize: 15,
+    marginBottom: 5,
+  },
+  modalInputView: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    marginBottom: 10,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+  },
+  modalInput: {
+    width: '90%',
+    padding: 10,
+    marginBottom: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+  },
   modalText: {
     fontSize: 20,
   },
@@ -131,6 +161,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+  },
+  modalButton: {
+    width: '100%',
+    padding: 10,
+    backgroundColor: colourPalette.primary,
+    borderRadius: 5,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalButtonText: {
+    color: '#fff',
   },
 });
 

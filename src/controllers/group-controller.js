@@ -1,3 +1,5 @@
+import { auth } from './firebase-controller';
+
 const groupData = [
   {
     id: 1,
@@ -5,18 +7,15 @@ const groupData = [
     members: [
       {
         id: 1,
-        name: 'Darshan',
-        checkedIn: true,
+        email: 'darshan@kaamchore.ca',
       },
       {
         id: 2,
-        name: 'John',
-        checkedIn: false,
+        email: 'john@kaamchore.ca',
       },
       {
         id: 3,
-        name: 'Jane',
-        checkedIn: true,
+        email: 'jane@kaamchore.ca',
       },
     ],
     chores: [
@@ -36,7 +35,7 @@ const groupData = [
         completed: true,
       },
     ],
-    recentActivity: 'Jane checked-in',
+    recentActivity: 'darshan@kaamchore.ca checked-in',
     totalChores: 3,
     completedChores: 2,
   },
@@ -46,18 +45,15 @@ const groupData = [
     members: [
       {
         id: 1,
-        name: 'Darshan',
-        checkedIn: true,
+        email: 'darshan@kaamchore.ca',
       },
       {
         id: 2,
-        name: 'John',
-        checkedIn: false,
+        email: 'john@kaamchore.ca',
       },
       {
         id: 3,
-        name: 'Jane',
-        checkedIn: true,
+        email: 'jane@kaamchore.ca',
       },
     ],
     chores: [
@@ -77,14 +73,17 @@ const groupData = [
         completed: true,
       },
     ],
-    recentActivity: 'Darshan checked-in',
+    recentActivity: 'darshan@kaamchore.ca checked-in',
     totalChores: 3,
     completedChores: 2,
   },
 ];
 
 export const getGroups = () => {
-  return groupData;
+  const currentUser = auth.currentUser.toJSON();
+  return groupData.filter((group) => {
+    return group.members.find((member) => member.email === currentUser.email);
+  });
 };
 
 export const getGroup = (id) => {
@@ -92,6 +91,11 @@ export const getGroup = (id) => {
 };
 
 export const createGroup = (group) => {
+  const currentUser = auth.currentUser.toJSON();
+  group.members.push({
+    id: group.members.length + 1,
+    email: currentUser.email,
+  });
   groupData.push(group);
 };
 

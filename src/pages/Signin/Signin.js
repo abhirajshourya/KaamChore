@@ -14,7 +14,6 @@ const Signin = ({ navigation }) => {
       await signIn(email, password);
       let userInfo = auth.currentUser.toJSON();
       dispatch({ type: 'user/login', payload: userInfo });
-      console.log('User signed in', userInfo);
     } catch (error) {
       Alert.alert('Error', error.message);
     }
