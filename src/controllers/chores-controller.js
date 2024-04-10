@@ -38,18 +38,22 @@ export const getGroupChores = async (groupId) => {
 };
 
 export const getUserChores = async () => {
-  let chores = [];
-  getGroups().then((dataSnapshot) => {
-    dataSnapshot.forEach((doc) => {
-      const group = doc.data();
-      if (group.members.includes(auth.currentUser.toJSON().email)) {
-        group.chores.forEach((chore) => {
-          chores.push(chore);
-        });
+  try {
+    const querySnapshot = await getDocs(collection(db, 'chores'));
+    const user = auth.currentUser.toJSON();
+    let chores = {};
+    querySnapshot.forEach((doc) => {
+      if (doc.data().assignee === user.email) {
+        chores = {
+          ...chores,
+          [doc.id]: doc.data(),
+        };
       }
     });
-  });
-  return chores;
+    return chores;
+  } catch (e) {
+    console.error('Error getting documents: ', e);
+  }
 };
 
 // export const getAllChores = async (groupId) => {

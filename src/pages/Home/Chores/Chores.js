@@ -4,14 +4,18 @@ import SafeAreaWithInsets from '../../../components/SafeAreaWithInsets/SafeAreaW
 import styles from '../../../styles/main';
 import ChoreCard from '../../../components/ChoreCard/ChoreCard';
 import { getUserChores } from '../../../controllers/chores-controller';
+import { useSelector, useDispatch } from 'react-redux';
+import { setChores } from '../../../redux/choresSlice';
 
 const Chores = () => {
-  const [chores, setChores] = useState([]);
+  const chores = useSelector((state) => state.chores.value);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchChores = async () => {
       const chores = await getUserChores();
-      setChores(chores);
+      dispatch(setChores(chores));
+      console.log(chores);
     };
     fetchChores();
   }, []);
@@ -22,13 +26,9 @@ const Chores = () => {
         <Text style={styles.header}>Your Chores</Text>
       </View>
       <View style={styles.listContainer}>
-        {chores.length !== 0 ? (
-          chores.map((chore, index) => {
-            return ChoreCard({ index, chore });
-          })
-        ) : (
-          <Text style={styles.noItemInList}>No chores to show!</Text>
-        )}
+        {Object.keys(chores).map((choreId) => {
+          return <ChoreCard key={choreId} chore={chores[choreId]} />;
+        })}
       </View>
     </SafeAreaWithInsets>
   );
