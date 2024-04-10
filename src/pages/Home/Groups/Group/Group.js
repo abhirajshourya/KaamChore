@@ -8,7 +8,7 @@ import ChoreCard from '../../../../components/ChoreCard/ChoreCard';
 import { deleteGroup } from '../../../../controllers/group-controller';
 import { useDispatch, useSelector } from 'react-redux';
 import { setGroups } from '../../../../redux/groupsSlice';
-import { Fontisto } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MemberList from '../../../../components/MemberList/MemberList';
 
 const Group = ({ route, navigation }) => {
@@ -68,7 +68,7 @@ const Group = ({ route, navigation }) => {
             setIsMembersModalVisible(true);
           }}
         >
-          <Fontisto name="persons" size={24} color="black" />
+          <MaterialCommunityIcons name="account-group" size={24} color="black" />
         </TouchableOpacity>
         <TouchableOpacity
           style={{

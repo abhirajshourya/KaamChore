@@ -7,6 +7,7 @@ import Profile from './Profile/Profile';
 import SafeAreaWithInsets from '../../components/SafeAreaWithInsets/SafeAreaWithInsets';
 import { Text, View } from 'react-native';
 import styles from '../../styles/main';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Home = () => {
   const Tab = createBottomTabNavigator();
@@ -26,10 +27,40 @@ const Home = () => {
   }
 
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Groups" component={Groups} />
-      <Tab.Screen name="Chores" component={Chores} />
-      <Tab.Screen name="Profile" component={Profile} />
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarLabelStyle: { fontSize: 14, marginBottom: 5 },
+        tabBarStyle: { height: 60, padding: 5 },
+      }}
+    >
+      <Tab.Screen
+        name="Groups"
+        component={Groups}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account-group" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Chores"
+        component={Chores}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="list-status" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account-circle" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
