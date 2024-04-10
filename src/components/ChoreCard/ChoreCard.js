@@ -1,21 +1,110 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { View, Text, TouchableOpacity, Alert, Modal, TextInput, Switch } from 'react-native';
+import React, { useState } from 'react';
 import styles from '../../styles/main';
+import { AntDesign } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { setChores } from '../../redux/choresSlice';
+import { updateChore } from '../../controllers/chores-controller';
+
+export const choreStatus = {
+  Pending: { text: 'Pending', color: 'red', value: false },
+  Completed: { text: 'Completed', color: 'green', value: true },
+};
 
 const ChoreCard = ({ index, chore }) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const dispatch = useDispatch();
+  const chores = useSelector((state) => state.chores.value);
+
+  const onPressHandler = () => {
+    setModalVisible(true);
+  };
+
+  onCheckDoneHandler = async () => {
+    console.log('Check Done');
+    /**
+     * 1. Update the chore status to 'Completed'
+     * 2. Using the updateChore function from the controller
+     * 3. Dispatch the updated chores to the store
+     * 4. Update the group completedChores count
+     * 5. Dispatch the updated group to the store
+     * 6. Close the modal
+     */
+  };
+
+  onDeleteHandler = () => {
+    console.log('Delete');
+    /**
+     * 1. Delete the chore from the database
+     * 2. Dispatch the updated chores to the store
+     * 3. Update the group completedChores & totalChores count
+     * 4. Dispatch the updated group to the store
+     * 5. Close the modal
+     */
+  };
+
   return (
-    <View style={styles.card} key={index + 1}>
-      <View>
-        <Text style={styles.cardText}>{chore.name}</Text>
-        <Text style={styles.cardSubText}>Assignee: {chore.assignee}</Text>
-      </View>
-      <View
-        style={{
-          alignItems: 'flex-end',
+    <View>
+      <TouchableOpacity
+        style={styles.card}
+        key={index + 1}
+        activeOpacity={0.75}
+        onPress={onPressHandler}
+      >
+        <View>
+          <Text style={styles.cardText}>{chore.name}</Text>
+          <Text style={styles.cardSubText}>Assignee: {chore.assignee}</Text>
+        </View>
+        <View
+          style={{
+            alignItems: 'flex-end',
+          }}
+        >
+          <Text style={styles.cardText}>{chore.status}</Text>
+        </View>
+      </TouchableOpacity>
+      <Modal
+        visible={isModalVisible}
+        animationType="fade"
+        transparent
+        onRequestClose={() => {
+          setModalVisible(false);
         }}
       >
-        <Text style={styles.cardText}>{chore.status}</Text>
-      </View>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalView}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalText}>{chore.name}</Text>
+              <TouchableOpacity
+                style={styles.modalIcon}
+                onPress={() => {
+                  setModalVisible(false);
+                }}
+              >
+                <AntDesign name="close" size={24} color="black" />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.modalDivider} />
+            <View style={styles.modalBody}>
+              <Text style={styles.modalLabel}>Description: {chore.description}</Text>
+              <Text style={styles.modalLabel}>Assignee: {chore.assignee}</Text>
+              <Text style={styles.modalLabel}>Status: {chore.status}</Text>
+            </View>
+            <View>
+              {!choreStatus[chore.status].value ? (
+                <TouchableOpacity onPress={onCheckDoneHandler}>
+                  <AntDesign name="check" size={24} color="black" />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity onPress={onDeleteHandler}>
+                  <AntDesign name="close" size={24} color="black" />
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

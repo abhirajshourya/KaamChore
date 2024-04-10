@@ -1,7 +1,7 @@
 import { auth } from './firebase-controller';
 import { getGroup, getGroups } from './group-controller';
 import { db } from './firebase-controller';
-import { addDoc, collection, doc, getDoc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 
 export const createChore = async (chore) => {
   try {
@@ -56,17 +56,11 @@ export const getUserChores = async () => {
   }
 };
 
-// export const getAllChores = async (groupId) => {
-//   let chores = [];
-//   getGroups().then((dataSnapshot) => {
-//     dataSnapshot.forEach((doc) => {
-//       const group = doc.data();
-//       if (group.id === groupId) {
-//         group.chores.forEach((chore) => {
-//           chores.push(chore);
-//         });
-//       }
-//     });
-//   });
-//   return chores;
-// };
+export const updateChore = async (choreId, chore) => {
+  try {
+    await setDoc(doc(db, 'chores', choreId), chore);
+    console.log('Document successfully updated!');
+  } catch (e) {
+    console.error('Error updating document: ', e);
+  }
+};
