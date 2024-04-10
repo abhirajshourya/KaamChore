@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import SafeAreaWithInsets from '../../../../components/SafeAreaWithInsets/SafeAreaWithInsets';
 import styles from '../../../../styles/main';
 import { AntDesign } from '@expo/vector-icons';
-import { getAllChores } from '../../../../controllers/chores-controller';
+import { getAllChores, getGroupChores } from '../../../../controllers/chores-controller';
 import ChoreCard from '../../../../components/ChoreCard/ChoreCard';
 import { deleteGroup } from '../../../../controllers/group-controller';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ const Group = ({ route, navigation }) => {
   const groupId = route.params.groupId;
 
   const [isMembersModalVisible, setIsMembersModalVisible] = useState(false);
-  const [chores, setChores] = useState([]);
+  const [chores, setChores] = useState({});
 
   const dispatch = useDispatch();
   const Groups = useSelector((state) => state.groups.value);
@@ -30,13 +30,28 @@ const Group = ({ route, navigation }) => {
     });
   };
 
-  useEffect(() => {
-    const fetchChores = async () => {
-      getAllChores(groupId).then((data) => {
-        setChores(data);
+  const fetchChores = async () => {
+    let groupChores = {};
+    getGroupChores(groupId).then((chores) => {
+      const promises = chores.map((choreId) => {
+        return getAllChores().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            if (doc.id === choreId) {
+              groupChores = {
+                ...groupChores,
+                [choreId]: doc.data(),
+              };
+            }
+          });
+        });
       });
-    };
+      Promise.all(promises).then(() => {
+        setChores(groupChores);
+      });
+    });
+  };
 
+  useEffect(() => {
     fetchChores();
   }, []);
 
@@ -107,12 +122,13 @@ const Group = ({ route, navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.listContainer}>
-        {chores.length > 0 ? (
-          chores.map((chore, index) => {
-            return ChoreCard({ index, chore });
+        {Object.keys(chores).length > 0 ? (
+          Object.keys(chores).map((choreId) => {
+            const chore = chores[choreId];
+            return <ChoreCard key={choreId} chore={chore} />;
           })
         ) : (
-          <Text style={styles.noItemInList}>Tap '+' to add chores!</Text>
+          <Text>No chores found</Text>
         )}
       </ScrollView>
       <MemberList

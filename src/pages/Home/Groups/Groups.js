@@ -37,7 +37,6 @@ const GroupsPage = ({ navigation }) => {
           const groupId = doc.id;
           const group = doc.data();
           if (filterGroupByUser(group)) {
-            console.log('Group: ', group);
             groups = {
               ...groups,
               [groupId]: group,
@@ -46,7 +45,6 @@ const GroupsPage = ({ navigation }) => {
         });
       })
       .finally(() => {
-        console.log('Groups: ', groups);
         dispatch(setGroups(groups));
       });
   };

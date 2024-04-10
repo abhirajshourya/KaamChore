@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 import { auth, db } from './firebase-controller';
 
 export const filterGroupByUser = (group) => {
@@ -6,12 +6,18 @@ export const filterGroupByUser = (group) => {
   return group.members.includes(user.email);
 };
 
-export const getGroup = async (id) => {
+export const getGroup = async (groupId) => {
   try {
-    const querySnapshot = await getDocs(collection(db, 'groups', id));
-    return querySnapshot;
+    const docRef = doc(db, 'groups', groupId);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return docSnap;
+    } else {
+      console.log('No such document!');
+    }
   } catch (e) {
-    console.error('Error getting documents: ', e);
+    console.error('Error getting document: ', e);
   }
 };
 
@@ -45,13 +51,14 @@ export const createGroup = async (group) => {
  * Update an existing group
  * @param {*} group
  */
-export const updateGroup = async (group) => {
+export const updateGroup = async (id, group) => {
   try {
-    const groupRef = doc(db, 'groups', group.id);
+    const groupRef = doc(db, 'groups', id);
     await setDoc(groupRef, group);
+    console.log('Document updated: ', id);
     return groupRef;
   } catch (e) {
-    console.error('Error updating group: ', e);
+    console.error('Error updating document: ', e);
   }
 };
 
