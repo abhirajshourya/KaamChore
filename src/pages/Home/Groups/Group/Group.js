@@ -1,16 +1,27 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SafeAreaWithInsets from '../../../../components/SafeAreaWithInsets/SafeAreaWithInsets';
 import styles from '../../../../styles/main';
 import { AntDesign } from '@expo/vector-icons';
 import { getAllChores } from '../../../../controllers/chores-controller';
 import ChoreCard from '../../../../components/ChoreCard/ChoreCard';
+import { deleteGroup } from '../../../../controllers/group-controller';
 
 const Group = ({ route, navigation }) => {
   const data = route.params.data;
-  const groupId = data.id;
+  const groupId = route.params.groupId;
 
-  const [chores, setChores] = useState(getAllChores(groupId));
+  const [chores, setChores] = useState([]);
+
+  useEffect(() => {
+    const fetchChores = async () => {
+      getAllChores(groupId).then((data) => {
+        setChores(data);
+      });
+    };
+
+    fetchChores();
+  }, []);
 
   return (
     <SafeAreaWithInsets>
@@ -47,16 +58,23 @@ const Group = ({ route, navigation }) => {
             paddingLeft: 20,
           }}
           onPress={() => {
-            navigation.pop();
+            deleteGroup(groupId).then(() => {
+              // dispatch to update Groups
+              navigation.pop();
+            });
           }}
         >
           <AntDesign name="delete" size={24} color="red" />
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.listContainer}>
-        {chores.map((chore, index) => {
-          return ChoreCard({ index, chore });
-        })}
+        {chores.length > 0 ? (
+          chores.map((chore, index) => {
+            return ChoreCard({ index, chore });
+          })
+        ) : (
+          <Text style={styles.noItemInList}>Tap '+' to add chores!</Text>
+        )}
       </ScrollView>
     </SafeAreaWithInsets>
   );

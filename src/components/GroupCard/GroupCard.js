@@ -2,9 +2,9 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import styles from '../../styles/main';
 
-const GroupCard = ({ index, data, navigation }) => {
+const GroupCard = ({ index, data, navigation, groupId }) => {
   const onGroupCardClick = () => {
-    navigation.navigate('Group', { data, navigation });
+    navigation.navigate('Group', { data, groupId });
   };
   return (
     <TouchableOpacity

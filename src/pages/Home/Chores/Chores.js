@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import SafeAreaWithInsets from '../../../components/SafeAreaWithInsets/SafeAreaWithInsets';
 import styles from '../../../styles/main';
 import ChoreCard from '../../../components/ChoreCard/ChoreCard';
 import { AntDesign } from '@expo/vector-icons';
 import { getUserChores } from '../../../controllers/chores-controller';
+import { useDispatch } from 'react-redux';
 
 const Chores = () => {
-  const [chores, setChores] = useState(getUserChores());
+  const [chores, setChores] = useState([]);
+
+  useEffect(() => {
+    const fetchChores = async () => {
+      const chores = await getUserChores();
+      setChores(chores);
+    };
+    fetchChores();
+  }, []);
 
   return (
     <SafeAreaWithInsets>
