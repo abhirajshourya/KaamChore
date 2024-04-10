@@ -9,7 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Group from './Group/Group';
 import { useSelector, useDispatch } from 'react-redux';
 import { setGroups } from '../../../redux/groupsSlice';
-import Chore from '../Chores/Chore/Chore';
+import AddChore from './AddChore/AddChore';
 
 const GroupsPage = ({ navigation }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -216,7 +216,7 @@ const Groups = () => {
     >
       <GroupsStack.Screen name="GroupsPage" component={GroupsPage} />
       <GroupsStack.Screen name="Group" component={Group} />
-      <GroupsStack.Screen name="AddChore" component={Chore} />
+      <GroupsStack.Screen name="AddChore" component={AddChore} />
     </GroupsStack.Navigator>
   );
 };

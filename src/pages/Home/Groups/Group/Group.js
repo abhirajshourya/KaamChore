@@ -75,7 +75,7 @@ const Group = ({ route, navigation }) => {
             paddingRight: 20,
           }}
           onPress={() => {
-            navigation.navigate('AddChore', { groupId });
+            navigation.navigate('AddChore', { groupId, members: data.members });
           }}
         >
           <AntDesign name="plus" size={24} color="black" />
