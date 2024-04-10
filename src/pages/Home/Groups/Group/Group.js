@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import SafeAreaWithInsets from '../../../../components/SafeAreaWithInsets/SafeAreaWithInsets';
 import styles from '../../../../styles/main';
@@ -20,6 +20,15 @@ const Group = ({ route, navigation }) => {
 
   const dispatch = useDispatch();
   const Groups = useSelector((state) => state.groups.value);
+
+  const onDeleteHandler = () => {
+    deleteGroup(groupId).then(() => {
+      const newGroups = { ...Groups };
+      delete newGroups[groupId];
+      dispatch(setGroups(newGroups));
+      navigation.pop();
+    });
+  };
 
   useEffect(() => {
     const fetchChores = async () => {
@@ -82,12 +91,16 @@ const Group = ({ route, navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            deleteGroup(groupId).then(() => {
-              const newGroups = { ...Groups };
-              delete newGroups[groupId];
-              dispatch(setGroups(newGroups));
-              navigation.pop();
-            });
+            Alert.alert('Delete Group', 'Are you sure you want to delete this group?', [
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+              {
+                text: 'Delete',
+                onPress: onDeleteHandler,
+              },
+            ]);
           }}
         >
           <AntDesign name="delete" size={24} color="red" />
