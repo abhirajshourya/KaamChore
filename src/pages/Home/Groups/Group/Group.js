@@ -56,7 +56,16 @@ const Group = ({ route, navigation }) => {
         >
           {data.name}
         </Text>
-
+        <TouchableOpacity
+          style={{
+            paddingRight: 20,
+          }}
+          onPress={() => {
+            navigation.navigate('AddChore', { groupId });
+          }}
+        >
+          <AntDesign name="plus" size={24} color="black" />
+        </TouchableOpacity>
         <TouchableOpacity
           style={{
             paddingLeft: 20,
