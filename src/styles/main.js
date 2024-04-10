@@ -180,6 +180,15 @@ const styles = StyleSheet.create({
   modalButtonText: {
     color: '#fff',
   },
+  modalMember: {
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  modalMemberText: {
+    fontSize: 15,
+  },
 });
 
 export default styles;

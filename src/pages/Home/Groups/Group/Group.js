@@ -8,12 +8,16 @@ import ChoreCard from '../../../../components/ChoreCard/ChoreCard';
 import { deleteGroup } from '../../../../controllers/group-controller';
 import { useDispatch, useSelector } from 'react-redux';
 import { setGroups } from '../../../../redux/groupsSlice';
+import { Fontisto } from '@expo/vector-icons';
+import MemberList from '../../../../components/MemberList/MemberList';
 
 const Group = ({ route, navigation }) => {
   const data = route.params.data;
   const groupId = route.params.groupId;
 
+  const [isMembersModalVisible, setIsMembersModalVisible] = useState(false);
   const [chores, setChores] = useState([]);
+
   const dispatch = useDispatch();
   const Groups = useSelector((state) => state.groups.value);
 
@@ -61,15 +65,22 @@ const Group = ({ route, navigation }) => {
             paddingRight: 20,
           }}
           onPress={() => {
+            setIsMembersModalVisible(true);
+          }}
+        >
+          <Fontisto name="persons" size={24} color="black" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            paddingRight: 20,
+          }}
+          onPress={() => {
             navigation.navigate('AddChore', { groupId });
           }}
         >
           <AntDesign name="plus" size={24} color="black" />
         </TouchableOpacity>
         <TouchableOpacity
-          style={{
-            paddingLeft: 20,
-          }}
           onPress={() => {
             deleteGroup(groupId).then(() => {
               const newGroups = { ...Groups };
@@ -91,6 +102,11 @@ const Group = ({ route, navigation }) => {
           <Text style={styles.noItemInList}>Tap '+' to add chores!</Text>
         )}
       </ScrollView>
+      <MemberList
+        setIsMembersModalVisible={setIsMembersModalVisible}
+        isMembersModalVisible={isMembersModalVisible}
+        members={data.members}
+      />
     </SafeAreaWithInsets>
   );
 };
