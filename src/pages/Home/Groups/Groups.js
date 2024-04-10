@@ -7,13 +7,17 @@ import { AntDesign } from '@expo/vector-icons';
 import { createGroup, filterGroupByUser, getGroups } from '../../../controllers/group-controller';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Group from './Group/Group';
+import { useSelector, useDispatch } from 'react-redux';
+import { setGroups } from '../../../redux/groupsSlice';
 
 const GroupsPage = ({ navigation }) => {
-  const [Groups, setGroups] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [groupName, setGroupName] = useState('');
   const [memberEmail, setMemberEmail] = useState('');
   const [members, setMembers] = useState([]);
+
+  const Groups = useSelector((state) => state.groups.value);
+  const dispatch = useDispatch();
 
   const addMember = () => {
     const email = memberEmail;
@@ -24,24 +28,29 @@ const GroupsPage = ({ navigation }) => {
     console.log(members);
   };
 
-  useEffect(() => {
-    const fetchGroups = async () => {
-      getGroups().then((dataSnapshot) => {
+  const fetchGroups = async () => {
+    let groups = {};
+    getGroups()
+      .then((dataSnapshot) => {
         dataSnapshot.forEach((doc) => {
           const groupId = doc.id;
           const group = doc.data();
           if (filterGroupByUser(group)) {
-            setGroups((Groups) => {
-              return {
-                ...Groups,
-                [groupId]: group,
-              };
-            });
+            console.log('Group: ', group);
+            groups = {
+              ...groups,
+              [groupId]: group,
+            };
           }
         });
+      })
+      .finally(() => {
+        console.log('Groups: ', groups);
+        dispatch(setGroups(groups));
       });
-    };
+  };
 
+  useEffect(() => {
     fetchGroups();
   }, []);
 
@@ -179,12 +188,7 @@ const GroupsPage = ({ navigation }) => {
                   };
                   console.log('Creating group: ', group);
                   const groupRef = await createGroup(group);
-                  setGroups((Groups) => {
-                    return {
-                      ...Groups,
-                      [groupRef.id]: group,
-                    };
-                  });
+                  dispatch(setGroups({ ...Groups, [groupRef.id]: group }));
                   setMembers([]);
                   setIsModalVisible(false);
                 }}

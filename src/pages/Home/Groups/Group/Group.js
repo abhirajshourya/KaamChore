@@ -6,12 +6,16 @@ import { AntDesign } from '@expo/vector-icons';
 import { getAllChores } from '../../../../controllers/chores-controller';
 import ChoreCard from '../../../../components/ChoreCard/ChoreCard';
 import { deleteGroup } from '../../../../controllers/group-controller';
+import { useDispatch, useSelector } from 'react-redux';
+import { setGroups } from '../../../../redux/groupsSlice';
 
 const Group = ({ route, navigation }) => {
   const data = route.params.data;
   const groupId = route.params.groupId;
 
   const [chores, setChores] = useState([]);
+  const dispatch = useDispatch();
+  const Groups = useSelector((state) => state.groups.value);
 
   useEffect(() => {
     const fetchChores = async () => {
@@ -59,7 +63,9 @@ const Group = ({ route, navigation }) => {
           }}
           onPress={() => {
             deleteGroup(groupId).then(() => {
-              // dispatch to update Groups
+              const newGroups = { ...Groups };
+              delete newGroups[groupId];
+              dispatch(setGroups(newGroups));
               navigation.pop();
             });
           }}

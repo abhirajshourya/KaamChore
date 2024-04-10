@@ -1,21 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  groups: [],
-};
-
 export const groupsSlice = createSlice({
   name: 'groups',
-  initialState,
+  initialState: {
+    value: {},
+  },
   reducers: {
     setGroups: (state, action) => {
-      state.groups = action.payload;
+      state.value = action.payload;
     },
   },
 });
 
-export const { setGroups } = groupsSlice.actions;
-
-export const selectGroups = (state) => state.groups.groups;
-
+export const { setGroups, addGroup, updateGroup, deleteGroup } = groupsSlice.actions;
 export default groupsSlice.reducer;
