@@ -12,5 +12,5 @@ export const groupsSlice = createSlice({
   },
 });
 
-export const { setGroups, addGroup, updateGroup, deleteGroup } = groupsSlice.actions;
+export const { setGroups } = groupsSlice.actions;
 export default groupsSlice.reducer;
