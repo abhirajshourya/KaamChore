@@ -3,11 +3,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import groupsReducer from './groupsSlice';
 import userReducer from './userSlice';
+import choresReducer from './choresSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     groups: groupsReducer,
+    chores: choresReducer,
   },
 });
 

@@ -5,6 +5,9 @@ import styles from '../../../../styles/main';
 import { createChore } from '../../../../controllers/chores-controller';
 import { getGroup, updateGroup } from '../../../../controllers/group-controller';
 import { AntDesign } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { setGroups } from '../../../../redux/groupsSlice';
+import { setChores } from '../../../../redux/choresSlice';
 
 const AddChore = ({ navigation, route }) => {
   const groupId = route.params.groupId;
@@ -13,6 +16,10 @@ const AddChore = ({ navigation, route }) => {
   const [choreName, setChoreName] = useState();
   const [description, setDescription] = useState();
   const [assignee, setAssignee] = useState();
+
+  const dispatch = useDispatch();
+  const Groups = useSelector((state) => state.groups.value);
+  const Chores = useSelector((state) => state.chores.value);
 
   const onSubmitHandler = () => {
     const chore = {
@@ -28,7 +35,11 @@ const AddChore = ({ navigation, route }) => {
       getGroup(groupId).then((doc) => {
         const group = doc.data();
         group.chores.push(choreId);
+        group.totalChores += 1;
+        group.recentActivity = 'New chore added';
         updateGroup(groupId, group).then(() => {
+          dispatch(setGroups({ ...Groups, [groupId]: group }));
+          dispatch(setChores({ ...Chores, [choreId]: chore }));
           navigation.pop();
         });
       });

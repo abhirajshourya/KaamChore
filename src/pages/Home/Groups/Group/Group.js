@@ -10,16 +10,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setGroups } from '../../../../redux/groupsSlice';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MemberList from '../../../../components/MemberList/MemberList';
+import { setChores } from '../../../../redux/choresSlice';
 
 const Group = ({ route, navigation }) => {
   const data = route.params.data;
   const groupId = route.params.groupId;
 
   const [isMembersModalVisible, setIsMembersModalVisible] = useState(false);
-  const [chores, setChores] = useState({});
 
   const dispatch = useDispatch();
   const Groups = useSelector((state) => state.groups.value);
+  const Chores = useSelector((state) => state.chores.value);
 
   const onDeleteHandler = () => {
     deleteGroup(groupId).then(() => {
@@ -46,7 +47,7 @@ const Group = ({ route, navigation }) => {
         });
       });
       Promise.all(promises).then(() => {
-        setChores(groupChores);
+        dispatch(setChores(groupChores));
       });
     });
   };
@@ -122,9 +123,9 @@ const Group = ({ route, navigation }) => {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.listContainer}>
-        {Object.keys(chores).length > 0 ? (
-          Object.keys(chores).map((choreId) => {
-            const chore = chores[choreId];
+        {Object.keys(Chores).length > 0 ? (
+          Object.keys(Chores).map((choreId) => {
+            const chore = Chores[choreId];
             return <ChoreCard key={choreId} chore={chore} />;
           })
         ) : (
