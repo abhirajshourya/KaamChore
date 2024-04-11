@@ -37,7 +37,7 @@ const Home = () => {
         component={Groups}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account-group" color={color} size={size} />
+            <MaterialCommunityIcons name="account-group" color={color} size={20} />
           ),
         }}
       />
@@ -46,7 +46,7 @@ const Home = () => {
         component={Chores}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="list-status" color={color} size={size} />
+            <MaterialCommunityIcons name="list-status" color={color} size={20} />
           ),
         }}
       />
@@ -55,7 +55,7 @@ const Home = () => {
         component={Profile}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account-circle" color={color} size={size} />
+            <MaterialCommunityIcons name="account-circle" color={color} size={20} />
           ),
         }}
       />

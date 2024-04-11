@@ -12,12 +12,14 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MemberList from '../../../../components/MemberList/MemberList';
 import { setChores } from '../../../../redux/choresSlice';
 import { useFocusEffect } from '@react-navigation/native';
+import LoadingSpinner from '../../../../components/LoadingSpinner/LoadingSpinner';
 
 const Group = ({ route, navigation }) => {
   const data = route.params.data;
   const groupId = route.params.groupId;
 
   const [isMembersModalVisible, setIsMembersModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const dispatch = useDispatch();
   const Groups = useSelector((state) => state.groups.value);
@@ -34,6 +36,7 @@ const Group = ({ route, navigation }) => {
 
   const fetchChores = async () => {
     let groupChores = {};
+    setIsLoading(true);
     getGroupChores(groupId).then((chores) => {
       const promises = chores.map(async (choreId) => {
         const querySnapshot = await getAllChores();
@@ -48,6 +51,7 @@ const Group = ({ route, navigation }) => {
       });
       Promise.all(promises).then(() => {
         dispatch(setChores(groupChores));
+        setIsLoading(false);
       });
     });
   };
@@ -58,7 +62,16 @@ const Group = ({ route, navigation }) => {
     }, [])
   );
 
-  return (
+  return isLoading ? (
+    <SafeAreaWithInsets>
+      <View style={styles.headerContainer}>
+        <Text style={styles.header}>{data.name}</Text>
+      </View>
+      <View style={styles.listContainer}>
+        <LoadingSpinner />
+      </View>
+    </SafeAreaWithInsets>
+  ) : (
     <SafeAreaWithInsets>
       <View
         style={{

@@ -7,18 +7,36 @@ import { getUserChores } from '../../../controllers/chores-controller';
 import { useSelector, useDispatch } from 'react-redux';
 import { setChores } from '../../../redux/choresSlice';
 import { useFocusEffect } from '@react-navigation/native';
+import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 const Chores = () => {
   const chores = useSelector((state) => state.chores.value);
   const dispatch = useDispatch();
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useFocusEffect(
     React.useCallback(() => {
-      getUserChores().then((data) => {
-        dispatch(setChores(data));
-      });
+      setIsLoading(true),
+        getUserChores().then((data) => {
+          dispatch(setChores(data));
+          setIsLoading(false);
+        });
     }, [])
   );
+
+  if (isLoading) {
+    return (
+      <SafeAreaWithInsets>
+        <View style={styles.headerContainer}>
+          <Text style={styles.header}>Your Chores</Text>
+        </View>
+        <View style={styles.listContainer}>
+          <LoadingSpinner />
+        </View>
+      </SafeAreaWithInsets>
+    );
+  }
 
   return (
     <SafeAreaWithInsets>
