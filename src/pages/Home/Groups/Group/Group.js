@@ -11,6 +11,7 @@ import { setGroups } from '../../../../redux/groupsSlice';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import MemberList from '../../../../components/MemberList/MemberList';
 import { setChores } from '../../../../redux/choresSlice';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Group = ({ route, navigation }) => {
   const data = route.params.data;
@@ -51,9 +52,11 @@ const Group = ({ route, navigation }) => {
     });
   };
 
-  useEffect(() => {
-    fetchChores();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchChores();
+    }, [])
+  );
 
   return (
     <SafeAreaWithInsets>

@@ -6,19 +6,19 @@ import ChoreCard from '../../../components/ChoreCard/ChoreCard';
 import { getUserChores } from '../../../controllers/chores-controller';
 import { useSelector, useDispatch } from 'react-redux';
 import { setChores } from '../../../redux/choresSlice';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Chores = () => {
   const chores = useSelector((state) => state.chores.value);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchChores = async () => {
-      const chores = await getUserChores();
-      dispatch(setChores(chores));
-      console.log(chores);
-    };
-    fetchChores();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getUserChores().then((data) => {
+        dispatch(setChores(data));
+      });
+    }, [])
+  );
 
   return (
     <SafeAreaWithInsets>
