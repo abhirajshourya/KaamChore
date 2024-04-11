@@ -9,14 +9,39 @@ const Signup = ({ navigation }) => {
   const [isPasswordHidden, setIsPasswordHidden] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isConfirmPasswordHidden, setIsConfirmPasswordHidden] = useState(true);
+  const [validation, setValidation] = useState('');
 
   const signUpHandler = async () => {
+    setValidation(() => validateInputs());
+    if (validation !== true) {
+      return;
+    }
+
     try {
       await signUp(email, password);
       navigation.popToTop();
     } catch (error) {
       Alert.alert('Error', error.message);
     }
+  };
+
+  const validateInputs = () => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(email) || email.length === 0) {
+      return 'Invalid email format';
+    }
+
+    if (password.length === 0) {
+      return 'Password cannot be empty';
+    }
+
+    if (password !== confirmPassword) {
+      return 'Passwords do not match';
+    }
+
+    return true;
   };
 
   return (
@@ -31,9 +56,6 @@ const Signup = ({ navigation }) => {
       >
         <View style={styles.formBox}>
           <View style={styles.formTitle}>
-            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-              <AntDesign name="arrowleft" size={24} color="black" />
-            </TouchableOpacity>
             <Text style={styles.formTitleText}>Sign-up at KaamChore</Text>
           </View>
           <View style={styles.formInput}>
@@ -83,6 +105,47 @@ const Signup = ({ navigation }) => {
               )}
             </TouchableOpacity>
           </View>
+          <View style={styles.formInput}>
+            <TextInput
+              placeholder="Confirm Password"
+              secureTextEntry={isConfirmPasswordHidden}
+              autoCorrect={false}
+              style={{
+                width: '90%',
+              }}
+              defaultValue={confirmPassword}
+              onChangeText={(text) => {
+                setConfirmPassword(text);
+              }}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                setIsConfirmPasswordHidden(!isConfirmPasswordHidden);
+              }}
+              underlayColor="#DDDDDD"
+              style={{
+                width: '10%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {isConfirmPasswordHidden ? (
+                <AntDesign name="eyeo" size={24} color="black" />
+              ) : (
+                <AntDesign name="eye" size={24} color="black" />
+              )}
+            </TouchableOpacity>
+          </View>
+          {validation && (
+            <View
+              style={{
+                marginBottom: 10,
+              }}
+            >
+              <Text style={{ color: 'red' }}>{validation}</Text>
+            </View>
+          )}
           <TouchableHighlight
             style={{
               ...styles.formButton,
@@ -101,6 +164,23 @@ const Signup = ({ navigation }) => {
               Sign Up
             </Text>
           </TouchableHighlight>
+          <View
+            style={{
+              marginTop: 10,
+            }}
+          >
+            <Text style={styles.formText}>
+              Already have an account?{' '}
+              <Text
+                style={styles.formLink}
+                onPress={() => {
+                  navigation.goBack();
+                }}
+              >
+                Log in
+              </Text>
+            </Text>
+          </View>
         </View>
       </View>
     </SafeAreaWithInsets>

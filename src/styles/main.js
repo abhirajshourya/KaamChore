@@ -57,6 +57,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  formText: {
+    fontSize: 16,
+  },
+  formLink: {
+    color: colourPalette.primary,
+  },
   headerContainer: {
     padding: 20,
     borderBottomWidth: 2,
@@ -188,6 +194,39 @@ const styles = StyleSheet.create({
   },
   modalMemberText: {
     fontSize: 15,
+  },
+  choreCardModalBody: {
+    marginBottom: 20,
+  },
+  choreCardDesc: {
+    fontSize: 15,
+    marginBottom: 10,
+    backgroundColor: '#f0f0f0',
+    borderColor: '#f0f0f0',
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+  },
+  choreCardAssignee: {
+    fontSize: 15,
+    marginBottom: 10,
+    backgroundColor: '#f0f0f0',
+    borderColor: '#f0f0f0',
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+  },
+  choreCardChip: {
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: '#f0f0f0',
+    marginBottom: 10,
+    width: 100,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

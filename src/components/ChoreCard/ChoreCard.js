@@ -125,10 +125,23 @@ const ChoreCard = ({ index, chore, choreId }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.modalDivider} />
-            <View style={styles.modalBody}>
-              <Text style={styles.modalLabel}>Description: {chore.description}</Text>
-              <Text style={styles.modalLabel}>Assignee: {chore.assignee}</Text>
-              <Text style={styles.modalLabel}>Status: {chore.status}</Text>
+            <View style={styles.choreCardModalBody}>
+              <View style={styles.choreCardDesc}>
+                <Text>{chore.description}</Text>
+              </View>
+              <View style={styles.choreCardAssignee}>
+                <Text>Assignee: {chore.assignee}</Text>
+              </View>
+              <View style={styles.choreCardChip}>
+                <Text
+                  style={{
+                    color: choreStatus[chore.status].color,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {chore.status}
+                </Text>
+              </View>
             </View>
             <View>
               {!choreStatus[chore.status].value ? (
@@ -137,7 +150,7 @@ const ChoreCard = ({ index, chore, choreId }) => {
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity onPress={onDeleteHandler}>
-                  <AntDesign name="close" size={24} color="black" />
+                  <AntDesign name="delete" size={24} color="black" />
                 </TouchableOpacity>
               )}
             </View>

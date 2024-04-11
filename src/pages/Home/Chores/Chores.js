@@ -44,9 +44,13 @@ const Chores = () => {
         <Text style={styles.header}>Your Chores</Text>
       </View>
       <View style={styles.listContainer}>
-        {Object.keys(chores).map((choreId) => {
-          return <ChoreCard key={choreId} chore={chores[choreId]} choreId={choreId} />;
-        })}
+        {Object.keys(chores).length > 0 ? (
+          Object.keys(chores).map((choreId) => {
+            return <ChoreCard key={choreId} chore={chores[choreId]} choreId={choreId} />;
+          })
+        ) : (
+          <Text style={styles.noItemInList}>No chores found</Text>
+        )}
       </View>
     </SafeAreaWithInsets>
   );
