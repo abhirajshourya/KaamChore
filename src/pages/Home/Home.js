@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import Chores from './Chores/Chores';
 import Groups from './Groups/Groups';
@@ -30,8 +29,7 @@ const Home = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarLabelStyle: { fontSize: 14, marginBottom: 5 },
-        tabBarStyle: { height: 60, padding: 5 },
+        tabBarLabelStyle: { fontSize: 14, marginBottom: 10 },
       }}
     >
       <Tab.Screen
