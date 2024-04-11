@@ -5,32 +5,50 @@ import { AntDesign } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChores } from '../../redux/choresSlice';
 import { updateChore } from '../../controllers/chores-controller';
+import { getGroup, updateGroup } from '../../controllers/group-controller';
+import { setGroups } from '../../redux/groupsSlice';
 
 export const choreStatus = {
   Pending: { text: 'Pending', color: 'red', value: false },
   Completed: { text: 'Completed', color: 'green', value: true },
 };
 
-const ChoreCard = ({ index, chore }) => {
+const ChoreCard = ({ index, chore, choreId }) => {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const dispatch = useDispatch();
   const chores = useSelector((state) => state.chores.value);
+  const groups = useSelector((state) => state.groups.value);
 
   const onPressHandler = () => {
     setModalVisible(true);
   };
 
   onCheckDoneHandler = async () => {
-    console.log('Check Done');
-    /**
-     * 1. Update the chore status to 'Completed'
-     * 2. Using the updateChore function from the controller
-     * 3. Dispatch the updated chores to the store
-     * 4. Update the group completedChores count
-     * 5. Dispatch the updated group to the store
-     * 6. Close the modal
-     */
+    const updatedChore = {
+      ...chore,
+      status: 'Completed',
+    };
+
+    await updateChore(choreId, updatedChore);
+
+    const updatedChores = {
+      ...chores,
+      [choreId]: updatedChore,
+    };
+
+    dispatch(setChores(updatedChores));
+
+    getGroup(chore.groupId).then((doc) => {
+      const group = doc.data();
+      group.completedChores += 1;
+      group.recentActivity = 'Chore completed';
+      updateGroup(chore.groupId, group).then(() => {
+        dispatch(setGroups({ ...groups, [chore.groupId]: group }));
+      });
+    });
+
+    setModalVisible(false);
   };
 
   onDeleteHandler = () => {

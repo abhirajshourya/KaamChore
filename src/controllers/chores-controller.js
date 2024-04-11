@@ -58,7 +58,8 @@ export const getUserChores = async () => {
 
 export const updateChore = async (choreId, chore) => {
   try {
-    await setDoc(doc(db, 'chores', choreId), chore);
+    const choreRef = doc(db, 'chores', choreId);
+    await setDoc(choreRef, chore);
     console.log('Document successfully updated!');
   } catch (e) {
     console.error('Error updating document: ', e);

@@ -34,16 +34,15 @@ const Group = ({ route, navigation }) => {
   const fetchChores = async () => {
     let groupChores = {};
     getGroupChores(groupId).then((chores) => {
-      const promises = chores.map((choreId) => {
-        return getAllChores().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            if (doc.id === choreId) {
-              groupChores = {
-                ...groupChores,
-                [choreId]: doc.data(),
-              };
-            }
-          });
+      const promises = chores.map(async (choreId) => {
+        const querySnapshot = await getAllChores();
+        querySnapshot.forEach((doc) => {
+          if (doc.id === choreId) {
+            groupChores = {
+              ...groupChores,
+              [choreId]: doc.data(),
+            };
+          }
         });
       });
       Promise.all(promises).then(() => {
@@ -126,7 +125,7 @@ const Group = ({ route, navigation }) => {
         {Object.keys(Chores).length > 0 ? (
           Object.keys(Chores).map((choreId) => {
             const chore = Chores[choreId];
-            return <ChoreCard key={choreId} chore={chore} />;
+            return <ChoreCard key={choreId} chore={chore} choreId={choreId} />;
           })
         ) : (
           <Text>No chores found</Text>

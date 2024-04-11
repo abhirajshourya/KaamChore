@@ -27,7 +27,7 @@ const Chores = () => {
       </View>
       <View style={styles.listContainer}>
         {Object.keys(chores).map((choreId) => {
-          return <ChoreCard key={choreId} chore={chores[choreId]} />;
+          return <ChoreCard key={choreId} chore={chores[choreId]} choreId={choreId} />;
         })}
       </View>
     </SafeAreaWithInsets>
