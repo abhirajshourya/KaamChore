@@ -12,11 +12,17 @@ A Cross-Platform application to manage house chore among groups and members.
 
 ## Features
 
+Completed
 - Create Groups
-- Invite Members
 - Create Chores
 - Assign Chores
+- Mark Chores Complete
+- See Recent Activity
+
+TBD
 - Add Chore Deadline
+- Invite Members
+
 
 
 

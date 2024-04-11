@@ -4,7 +4,7 @@ import styles from '../../styles/main';
 import { AntDesign } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { setChores } from '../../redux/choresSlice';
-import { updateChore } from '../../controllers/chores-controller';
+import { deleteChore, updateChore } from '../../controllers/chores-controller';
 import { getGroup, updateGroup } from '../../controllers/group-controller';
 import { setGroups } from '../../redux/groupsSlice';
 
@@ -52,14 +52,35 @@ const ChoreCard = ({ index, chore, choreId }) => {
   };
 
   onDeleteHandler = () => {
-    console.log('Delete');
-    /**
-     * 1. Delete the chore from the database
-     * 2. Dispatch the updated chores to the store
-     * 3. Update the group completedChores & totalChores count
-     * 4. Dispatch the updated group to the store
-     * 5. Close the modal
-     */
+    Alert.alert('Delete Chore', 'Are you sure you want to delete this chore?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: async () => {
+          await deleteChore(choreId);
+
+          const updatedChores = { ...chores };
+          delete updatedChores[choreId];
+          dispatch(setChores(updatedChores));
+
+          getGroup(chore.groupId).then((doc) => {
+            const group = doc.data();
+            group.totalChores -= 1;
+            group.completedChores -= 1;
+            group.recentActivity = 'Chore deleted';
+            group.chores = group.chores.filter((chore) => chore !== choreId);
+            updateGroup(chore.groupId, group).then(() => {
+              dispatch(setGroups({ ...groups, [chore.groupId]: group }));
+            });
+          });
+
+          setModalVisible(false);
+        },
+      },
+    ]);
   };
 
   return (

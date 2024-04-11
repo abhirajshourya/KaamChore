@@ -1,7 +1,7 @@
 import { auth } from './firebase-controller';
 import { getGroup, getGroups } from './group-controller';
 import { db } from './firebase-controller';
-import { addDoc, collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 
 export const createChore = async (chore) => {
   try {
@@ -63,5 +63,14 @@ export const updateChore = async (choreId, chore) => {
     console.log('Document successfully updated!');
   } catch (e) {
     console.error('Error updating document: ', e);
+  }
+};
+
+export const deleteChore = async (choreId) => {
+  try {
+    await deleteDoc(doc(db, 'chores', choreId));
+    console.log('Document successfully deleted!');
+  } catch (e) {
+    console.error('Error removing document: ', e);
   }
 };
