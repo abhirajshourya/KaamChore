@@ -73,17 +73,27 @@ const AddChore = ({ navigation, route }) => {
             <TextInput
               placeholder="Chore Name"
               defaultValue={choreName}
+              autoFocus={true}
+              style={{
+                width: '90%',
+              }}
               onChangeText={(text) => {
                 setChoreName(text);
               }}
             />
           </View>
-          <View style={styles.formInput}>
+          <View style={styles.modalInputView}>
             <TextInput
               placeholder="Description"
+              multiline={true}
+              numberOfLines={4}
               defaultValue={description}
               onChangeText={(text) => {
                 setDescription(text);
+              }}
+              style={{
+                width: '90%',
+                textAlignVertical: 'top',
               }}
             />
           </View>
@@ -91,6 +101,11 @@ const AddChore = ({ navigation, route }) => {
             <TextInput
               placeholder="Assignee (enter e-mail)"
               defaultValue={assignee}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              style={{
+                width: '90%',
+              }}
               onChangeText={(text) => {
                 setAssignee(text);
               }}
