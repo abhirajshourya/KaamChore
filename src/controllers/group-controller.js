@@ -65,6 +65,14 @@ export const updateGroup = async (id, group) => {
 export const deleteGroup = async (id) => {
   try {
     const groupRef = doc(db, 'groups', id);
+    // delete the chores associated with the group
+    const group = await getGroup(id);
+    const groupData = group.data();
+    const chores = groupData.chores;
+    chores.forEach(async (chore) => {
+      await deleteDoc(doc(db, 'chores', chore));
+      console.log('Chore assocated with group, deleted: ', chore);
+    });
     await deleteDoc(groupRef);
     console.log('Group deleted: ', id);
     return groupRef;
