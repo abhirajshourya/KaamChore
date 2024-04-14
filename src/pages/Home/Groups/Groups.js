@@ -118,6 +118,8 @@ const GroupsPage = ({ navigation }) => {
                 <TextInput
                   style={styles.modalInput}
                   placeholder="Enter Member's Email"
+                  autoCapitalize='none'
+                  inputMode='email'
                   onChangeText={(text) => {
                     setMemberEmail(text);
                   }}
